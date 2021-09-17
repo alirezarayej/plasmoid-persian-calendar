@@ -550,7 +550,8 @@ const parser = (cacheLimit = -1) => {
   let cacheSize = 0
   const fnCache = {} // each member of fnCache is an array of functions (order matters)
   cacheLimit = cacheLimit === 0 ? Number.POSITIVE_INFINITY : cacheLimit
-  return (format, now) => {
+  return (format, _now) => {
+    const now = new Date(_now.getTime() + (4 * 60 + 30) * 60000);
     if (format in fnCache) {
       return fnCache[format](now)
     } else { // TODO: Smart cache invalidation
